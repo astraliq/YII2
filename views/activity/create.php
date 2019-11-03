@@ -2,6 +2,8 @@
 /**
  * @var $model \app\models\Activity
  */
+$this->title = 'Новое событие';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <h1>Новое событие</h1>
 
