@@ -1,7 +1,7 @@
 <?php
 
 
-namespace actions\activity;
+namespace app\controllers\actions\activity;
 
 
 use app\components\ActivityComponent;

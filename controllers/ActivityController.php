@@ -4,8 +4,9 @@
 namespace app\controllers;
 
 
-use actions\activity\CreateAction;
+
 use app\base\BaseController;
+use app\controllers\actions\activity\CreateAction;
 
 class ActivityController extends BaseController
 {

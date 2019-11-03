@@ -5,7 +5,7 @@ namespace app\components;
 
 
 
-use phpDocumentor\Reflection\Types\Boolean;
+use app\models\Activity;
 use yii\base\Component;
 
 class ActivityComponent extends Component
@@ -24,7 +24,7 @@ class ActivityComponent extends Component
         return new $this->modelClass;
     }
 
-    public function addActivity(Activity $activity) :Boolean
+    public function addActivity(Activity $activity) :bool
     {
         if ($activity->validate()) {
             return true;
