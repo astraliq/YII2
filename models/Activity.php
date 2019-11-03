@@ -10,7 +10,10 @@ class Activity extends Model
 {
     public $title;
     public $description;
-    public $date;
+    public $dateStart;
+    public $duration;
+    public $isEnding;
+    public $dateEnd;
     public $isBlocked;
     public $isRepeat;
 
@@ -18,9 +21,10 @@ class Activity extends Model
     {
         return [
             ['title','required'],
-            ['description','string','max' => 250],
-            ['date','string'],
-            [['isBlocked','isRepeat'],'boolean']
+            ['description','string','min' => 2,'max' => 250],
+            ['dateStart','string'],
+            ['dateEnd','string'],
+            [['isBlocked','isRepeat','isEnding'],'boolean']
         ];
     }
     public function attributeLabels()
@@ -28,7 +32,9 @@ class Activity extends Model
         return [
             'title'=>'Название события',
             'description'=>'Описание',
-            'date'=>'Дата',
+            'dateStart'=>'Дата начала',
+            'dateEnd'=>'Дата завершения',
+            'isEnding'=>'Установить дату завершения',
             'isBlocked'=>'Блокирующее',
             'isRepeat'=>'Повторяющееся'
         ];
