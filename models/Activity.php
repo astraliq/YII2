@@ -16,15 +16,15 @@ class Activity extends Model
     public $dateEnd;
     public $isBlocked;
     public $isRepeat;
+    public $authorId;
 
     public function rules()
     {
         return [
-            ['title','required'],
+            [['title', 'description', 'dateStart'],'required'],
             ['description','string','min' => 2,'max' => 250],
-            ['dateStart','string'],
-            ['dateEnd','string'],
-            [['isBlocked','isRepeat','isEnding'],'boolean']
+            [['dateStart','dateEnd'],'string'],
+            [['isBlocked','isRepeat','isEnding'],'boolean'],
         ];
     }
     public function attributeLabels()
@@ -32,11 +32,11 @@ class Activity extends Model
         return [
             'title'=>'Название события',
             'description'=>'Описание',
-            'dateStart'=>'Дата начала',
+            'dateStart'=>'Дата создания',
             'dateEnd'=>'Дата завершения',
             'isEnding'=>'Установить дату завершения',
             'isBlocked'=>'Блокирующее',
-            'isRepeat'=>'Повторяющееся'
+            'isRepeat'=>'Повторяющееся',
         ];
     }
 }
