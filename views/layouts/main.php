@@ -27,7 +27,7 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <a id="backward_btn" href="/#">< Назад</a>
+    <a id="backward_btn" href="/<?= \Yii::$app->params['previousUrl']; ?>">< Назад</a>
     <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->name,

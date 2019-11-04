@@ -18,8 +18,8 @@ class CreateAction extends Action
         $dayComp = \Yii::createObject(['class' => DayComponent::class,'modelClass' => Day::class]);
         $model = $comp->getModel();
         $dayModel = $dayComp->getModel();
-//      \Yii::$app->session->set('sdf','val');
-//      \Yii::$app->session->get('sdf','val');
+
+//        \Yii::$app->session->set('sdf','val');
 
         if (\Yii::$app->request->isPost) {
             $model->load(\Yii::$app->request->post());
