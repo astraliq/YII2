@@ -30,7 +30,7 @@ class CreateAction extends Action
                 \Yii::$app->response->format=Response::FORMAT_JSON;
                 return ActiveForm::validate($model);
             }
-
+            \Yii::$app->params['dateStart'] = \Yii::$app->formatter->asDatetime($model->dateStart, "php:M Y");
             if ($comp->addActivity($model) && $dayComp->addActivity($model, $dayModel)) {
                 return $this->controller->render('view', ['model' => $model]);
             } else {

@@ -30,7 +30,7 @@ class ActivityComponent extends Component
     {
         $activity->files = UploadedFile::getInstances($activity, 'files');
         if ($activity->validate()) {
-            foreach ($activity->files as $file) {
+            foreach ($activity->files as &$file) {
                 $file = $this->saveFile($file);
                 if (!$file) {
                     return false;
@@ -60,7 +60,7 @@ class ActivityComponent extends Component
 
     private function genFileName(UploadedFile $file)
     {
-        return time().'_'.$file->getBaseName().'.'.$file->getExtension();
+        return time() . '-' . $file->getBaseName() . '.' . $file->getExtension();
     }
 
 }
