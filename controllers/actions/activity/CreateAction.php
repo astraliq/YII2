@@ -32,7 +32,9 @@ class CreateAction extends Action
             }
 
             if ($comp->addActivity($model) && $dayComp->addActivity($model, $dayModel)) {
-
+                return $this->controller->render('view', ['model' => $model]);
+            } else {
+                print_r($model->getErrors());
             }
         }
         return $this->controller->render('create', ['model' => $model,]);

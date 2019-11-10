@@ -12,6 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php $form = \yii\bootstrap\ActiveForm::begin([
 //                'enableAjaxValidation' => true,
 //                'enableClientValidation' => false,
+            'options' => ['enctype' => 'multipart/form-data'],
        ]);  ?>
         <?=$form->field($model,'title');?>
         <?=$form->field($model,'description')->textarea();?>
@@ -23,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?=$form->field($model,'repeatType',['enableClientValidation'=>false, 'enableAjaxValidation'=>true])->dropDownList($model::REPEAT_TYPE,['options' =>[ '0' => ['Selected' => true]]]);?>
         <?=$form->field($model,'useNotification')->checkbox();?>
         <?=$form->field($model,'email',['enableClientValidation'=>false, 'enableAjaxValidation'=>true]);?>
+        <?=$form->field($model, 'files[]')->fileInput(['multiple' => true,]);?>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Сохранить</button>
         </div>

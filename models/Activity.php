@@ -21,6 +21,7 @@ class Activity extends Model
     public $authorId;
     public $email;
     public $useNotification;
+    public $files;
 
     const DAY = 0;
     const WEEK = 1;
@@ -42,6 +43,7 @@ class Activity extends Model
     public function rules()
     {
         return [
+            ['files','file', 'extensions' => ['jpg', 'png', 'jpeg'], 'maxFiles' => 3],
             [['title','description'], 'trim'],
             [['title', 'description', 'dateStart'],'required'],
             ['title', 'string', 'min' => 3, 'max' => 50],
@@ -77,6 +79,7 @@ class Activity extends Model
             'email'=>'E-mail',
             'useNotification'=>'Уведомлять на E-mail',
             'repeatType'=>'Повторять',
+            'files'=>'Изображение(я)',
         ];
     }
 }
