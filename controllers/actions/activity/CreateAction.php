@@ -9,6 +9,8 @@ use app\components\DayComponent;
 use app\models\Activity;
 use app\models\Day;
 use yii\base\Action;
+use yii\bootstrap\ActiveForm;
+use yii\web\Response;
 
 class CreateAction extends Action
 {
@@ -23,6 +25,12 @@ class CreateAction extends Action
 
         if (\Yii::$app->request->isPost) {
             $model->load(\Yii::$app->request->post());
+
+            if (\Yii::$app->request->isAjax) {
+                \Yii::$app->response->format=Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+            }
+
             if ($comp->addActivity($model) && $dayComp->addActivity($model, $dayModel)) {
 
             }

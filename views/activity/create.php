@@ -9,14 +9,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="row">
     <div class="col-md-8">
-        <?php $form = \yii\bootstrap\ActiveForm::begin();?>
+        <?php $form = \yii\bootstrap\ActiveForm::begin([
+//                'enableAjaxValidation' => true,
+//                'enableClientValidation' => false,
+       ]);  ?>
         <?=$form->field($model,'title');?>
         <?=$form->field($model,'description')->textarea();?>
-        <?=$form->field($model,'dateStart')->input('date');?>
+        <?=$form->field($model,'dateStart')?>
         <?=$form->field($model,'isEnding')->checkbox()?>
-        <?=$form->field($model,'dateEnd')->input('date');?>
-        <?=$form->field($model,'isBlocked')->checkbox()?>
-        <?=$form->field($model,'isRepeat')->checkbox()?>
+        <?=$form->field($model,'dateEnd',['enableClientValidation'=>false, 'enableAjaxValidation'=>true])->input('date');?>
+        <?=$form->field($model,'isBlocked')->checkbox();?>
+        <?=$form->field($model,'isRepeat')->checkbox();?>
+        <?=$form->field($model,'repeatType',['enableClientValidation'=>false, 'enableAjaxValidation'=>true])->dropDownList($model::REPEAT_TYPE,['options' =>[ '0' => ['Selected' => true]]]);?>
+        <?=$form->field($model,'useNotification')->checkbox();?>
+        <?=$form->field($model,'email',['enableClientValidation'=>false, 'enableAjaxValidation'=>true]);?>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Сохранить</button>
         </div>
