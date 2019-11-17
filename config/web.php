@@ -20,6 +20,7 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'KgwG1UaM5LY7H1NDdhY40tia3ldE7KwL',
         ],
+        'dao' => ['class' => \app\components\DAOComponent::class],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
