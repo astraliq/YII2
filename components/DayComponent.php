@@ -29,9 +29,9 @@ class DayComponent extends Component
 
     public function addActivity(Activity $activity, Day $day) :bool
     {
-        if ($this->checkBlockedActivities($day))  {
-            if ($activity->isBlocked) {
-                $day->blockedActivities = clone $day->dayActivities;
+        if ($this->checkBlockedActivities($day)) {
+            if ($activity->isBlocked && !empty($day->dayActivities)) {
+                $day->blockedActivities = $day->dayActivities;
                 $day->dayActivities = [];
             }
             array_push($day->dayActivities, $activity);
