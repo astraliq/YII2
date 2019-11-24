@@ -43,7 +43,7 @@ AppAsset::register($this);
             ['label' => 'О нас', 'url' => ['/site/about']],
             ['label' => 'Контакты', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Вход', 'url' => ['/site/login']]
+                    ['label' => 'Вход', 'url' => ['/auth/sign-in']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
@@ -53,7 +53,10 @@ AppAsset::register($this);
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+            ),
+            Yii::$app->user->isGuest ? (
+            ['label' => 'Регистрация', 'url' => ['/auth/sign-up']]
+            ) :('')
         ],
     ]);
     NavBar::end();
