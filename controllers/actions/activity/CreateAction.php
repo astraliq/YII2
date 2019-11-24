@@ -30,7 +30,6 @@ class CreateAction extends Action
 
         if (\Yii::$app->request->isPost) {
             $model->load(\Yii::$app->request->post());
-
             if (\Yii::$app->request->isAjax) {
                 \Yii::$app->response->format=Response::FORMAT_JSON;
                 return ActiveForm::validate($model);

@@ -41,8 +41,9 @@ class ActivityComponent extends Component
                     return false;
                 }
             }
+            $activity->files = implode('|',$activity->filesReal);
 //            if ($activity->email == "")
-//            print_r('OKOKOK');
+//            print_r($activity->filesReal);
 //            exit;
             // валидация + сохранение активности
             if ($activity->save(false)) {

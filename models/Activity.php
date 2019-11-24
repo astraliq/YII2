@@ -62,7 +62,7 @@ class Activity extends ActivityBase
             ['email', 'required','when' => function($model) {
                 return $model->useNotification;
             }],
-            ['email', 'default', 'value' => null],
+            [['email','files'], 'default', 'value' => null],
             ['repeatType', 'in', 'range' => array_keys(self::REPEAT_TYPE)],
         ],parent::rules());
     }
