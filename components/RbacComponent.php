@@ -4,6 +4,8 @@
 namespace app\components;
 
 
+use app\models\Activity;
+use app\rules\OwnerActivityRule;
 use yii\base\Component;
 use yii\rbac\ManagerInterface;
 
@@ -29,8 +31,12 @@ class RbacComponent extends Component
         $createActivity->description='Создание активностей';
         $manager->add($createActivity);
 
+        $rule=new OwnerActivityRule();
+        $manager->add($rule);
+
         $viewOwnerActivity=$manager->createPermission('viewOwnerActivity');
         $viewOwnerActivity->description='Просмотр своих активностей';
+        $viewOwnerActivity->ruleName=$rule->name;
         $manager->add($viewOwnerActivity);
 
         $adminActivity=$manager->createPermission('adminActivity');
@@ -53,15 +59,13 @@ class RbacComponent extends Component
     {
         return \Yii::$app->user->can('createActivity');
     }
-    public function canViewActivity($activityUserId):bool
+    public function canViewActivity(Activity $activity):bool
     {
         if (\Yii::$app->user->can('adminActivity')) {
             return true;
         }
-        if (\Yii::$app->user->can('viewOwnerActivity')) {
-            if (\Yii::$app->user->getId() == $activityUserId) {
-                return true;
-            }
+        if (\Yii::$app->user->can('viewOwnerActivity',['activity'=>$activity])) {
+            return true;
         }
         return false;
     }

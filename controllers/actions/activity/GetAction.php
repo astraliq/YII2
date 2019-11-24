@@ -23,8 +23,8 @@ class GetAction extends Action
             throw new HttpException(404,'Activity not found');
         }
 
-        if (!\Yii::$app->rbac->canViewActivity($model->userId)){
-            throw new HttpException(403,'Not access');
+        if (!\Yii::$app->rbac->canViewActivity($model)){
+            throw new HttpException(403,'Not access to activity');
         }
 
         return $this->controller->render('view', ['model' => $model,'pageTitle'=>'Просмотр события']);
