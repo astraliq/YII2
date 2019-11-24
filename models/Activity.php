@@ -21,7 +21,7 @@ class Activity extends ActivityBase
     public $authorId;
 //    public $email;
     public $useNotification;
-//    public $files;
+    public $filesReal;
 
     const DAY = 0;
     const WEEK = 1;
@@ -43,7 +43,7 @@ class Activity extends ActivityBase
     public function rules()
     {
         return array_merge([
-            ['files','file', 'extensions' => ['jpg', 'png', 'jpeg'], 'maxFiles' => 3],
+            ['filesReal','file', 'extensions' => ['jpg', 'png', 'jpeg'], 'maxFiles' => 3],
             [['title','description'], 'trim'],
             [['title', 'description', 'dateStart'],'required'],
             ['title', 'string', 'min' => 3, 'max' => 50],
@@ -62,6 +62,7 @@ class Activity extends ActivityBase
             ['email', 'required','when' => function($model) {
                 return $model->useNotification;
             }],
+            ['email', 'default', 'value' => null],
             ['repeatType', 'in', 'range' => array_keys(self::REPEAT_TYPE)],
         ],parent::rules());
     }
@@ -79,7 +80,7 @@ class Activity extends ActivityBase
             'email'=>'E-mail',
             'useNotification'=>'Уведомлять на E-mail',
             'repeatType'=>'Повторять',
-            'files'=>'Изображение(я)',
+            'filesReal'=>'Изображение(я)',
         ];
     }
 }

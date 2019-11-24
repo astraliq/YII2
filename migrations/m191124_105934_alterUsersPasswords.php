@@ -12,7 +12,6 @@ class m191124_105934_alterUsersPasswords extends Migration
      */
     public function safeUp()
     {
-//\Yii::$app->security->generatePasswordHash($password);
         $this->update('users',['passwordHash'=>\Yii::$app->security->generatePasswordHash('123456')],['id'=>1]);
         $this->update('users',['passwordHash'=>\Yii::$app->security->generatePasswordHash('123456')],['id'=>2]);
     }
