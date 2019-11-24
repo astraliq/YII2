@@ -4,12 +4,16 @@
 namespace app\base;
 
 use yii\web\Controller;
+use yii\web\HttpException;
 
 class BaseController extends Controller
 {
     public $previousUrl = '/';
     public function beforeAction($action)
     {
+//        if (\Yii::$app->user->isGuest){
+//            throw new HttpException(401,'NotAuth');
+//        }
         $this->previousUrl = \Yii::$app->request->getPathInfo();
         $previousUrl = \Yii::$app->session->get('previousUrl');
         \Yii::$app->params['previousUrl'] = $previousUrl;

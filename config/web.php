@@ -25,6 +25,11 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'auth' => ['class' => \app\components\AuthComponent::class],
+        'activity' => ['class' => \app\components\ActivityComponent::class],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager'
+        ],
+        'rbac' => ['class' => \app\components\RbacComponent::class],
         'user' => [
             'identityClass' => 'app\models\Users',
             'enableAutoLogin' => true,

@@ -30,6 +30,7 @@ class ActivityComponent extends Component
     {
         $activity->files = UploadedFile::getInstances($activity, 'files');
         $fileSaver = \Yii::createObject(['class' => FileSaverComponent::class]);
+        $activity->userId=\Yii::$app->user->getId();
         if ($activity->validate()) {
             foreach ($activity->files as &$file) {
                 $file = $fileSaver->saveFile($file);
@@ -38,8 +39,14 @@ class ActivityComponent extends Component
                     return false;
                 }
             }
-            return true;
+            // валидация + сохранение активности
+            if ($activity->save(false)) {
+                return true;
+            }
+            \Yii::error($activity->getErrors());
+            return false;
         }
+        //валидация файлов не прошла
         return false;
     }
 

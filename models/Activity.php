@@ -7,21 +7,21 @@ namespace app\models;
 use app\models\rules\BlackListRule;
 use yii\base\Model;
 
-class Activity extends Model
+class Activity extends ActivityBase
 {
-    public $title;
-    public $description;
-    public $dateStart;
+//    public $title;
+//    public $description;
+//    public $dateStart;
     public $duration;
     public $isEnding;
-    public $dateEnd;
-    public $isBlocked;
-    public $isRepeat;
+//    public $dateEnd;
+//    public $isBlocked;
+//    public $isRepeat;
     public $repeatType;
     public $authorId;
-    public $email;
+//    public $email;
     public $useNotification;
-    public $files;
+//    public $files;
 
     const DAY = 0;
     const WEEK = 1;
@@ -42,7 +42,7 @@ class Activity extends Model
 
     public function rules()
     {
-        return [
+        return array_merge([
             ['files','file', 'extensions' => ['jpg', 'png', 'jpeg'], 'maxFiles' => 3],
             [['title','description'], 'trim'],
             [['title', 'description', 'dateStart'],'required'],
@@ -63,7 +63,7 @@ class Activity extends Model
                 return $model->useNotification;
             }],
             ['repeatType', 'in', 'range' => array_keys(self::REPEAT_TYPE)],
-        ];
+        ],parent::rules());
     }
 
     public function attributeLabels()
