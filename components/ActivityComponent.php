@@ -28,18 +28,29 @@ class ActivityComponent extends Component
 
     public function addActivity(Activity $activity) :bool
     {
-        $activity->files = UploadedFile::getInstances($activity, 'files');
+        $activity->filesReal = UploadedFile::getInstances($activity, 'filesReal');
         $fileSaver = \Yii::createObject(['class' => FileSaverComponent::class]);
+        $activity->userId=\Yii::$app->user->getId();
+
         if ($activity->validate()) {
-            foreach ($activity->files as &$file) {
+
+            foreach ($activity->filesReal as &$file) {
                 $file = $fileSaver->saveFile($file);
-//                $file = $this->saveFile($file);
                 if (!$file) {
                     return false;
                 }
             }
-            return true;
+            $activity->files = implode('|',$activity->filesReal);
+            // валидация + сохранение активности
+            if ($activity->save(false)) {
+                return true;
+            }
+            \Yii::error($activity->getErrors());
+            return false;
         }
+//        print_r('OKOKOK');
+//        exit;
+        //валидация файлов не прошла
         return false;
     }
 
