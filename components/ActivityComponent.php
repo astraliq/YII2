@@ -36,15 +36,11 @@ class ActivityComponent extends Component
 
             foreach ($activity->filesReal as &$file) {
                 $file = $fileSaver->saveFile($file);
-//                $file = $this->saveFile($file);
                 if (!$file) {
                     return false;
                 }
             }
             $activity->files = implode('|',$activity->filesReal);
-//            if ($activity->email == "")
-//            print_r($activity->filesReal);
-//            exit;
             // валидация + сохранение активности
             if ($activity->save(false)) {
                 return true;

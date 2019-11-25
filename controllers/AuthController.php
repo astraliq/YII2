@@ -41,7 +41,7 @@ class AuthController extends BaseController
             $model->load(\Yii::$app->request->post());
 
             if ($this->auth->signIn($model)) {
-                return $this->redirect(['/activity/create']);
+                return $this->redirect(['/activity/view-all']);
             }
 
         }

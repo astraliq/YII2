@@ -32,12 +32,43 @@ for (let i = 0; i < Object.keys(checkBoxBlocks).length; i++) {
 		}
 	});
 }
+
+let activitiesArr = [];
+let now = new Date();
 let calendar = $('#calendar_block');
-let currentDate = new Date($('#date_start_newaction').text());
+if (document.location.pathname === '/activity/view-all') {
+	$.ajax({
+		url: '/activity/view-all',
+		data: {
+			method: 'getActivities',
+		},
+		success: function (data) {
+			activitiesArr = data;
+			console.log(activitiesArr);
+			createCalendar(calendar, now.getFullYear(), now.getMonth(), activitiesArr);
+		}
+	});
+} else {
+	
+};
+
+	
+
+let currentDate = new Date($('#date_start_newaction').text() ? $('#date_start_newaction').text() : '2016-11-17');
 let currentDay = currentDate.getDate();
 let currentMonth = currentDate.getMonth();
 let currentYear = currentDate.getFullYear();
-function createCalendar(elem, year, month) {
+
+
+function ifDayIsActive(date, activities) {
+	for (let i = 0; i < activities.length; i++) {
+		if (date.valueOf() === new Date(activities[i].dateStart).valueOf()) {
+			return true;
+		};
+	}
+};
+
+function createCalendar(elem, year, month, activities) {
 	let months = {
 		0: 'Январь',
 		1: 'Февраль',
@@ -54,12 +85,13 @@ function createCalendar(elem, year, month) {
 	}
 	let mon = month; // месяцы в JS идут от 0 до 11, а не от 1 до 12
 	let d = new Date(year, mon);
+//	console.log('d--> ' +d);
 	let previousMonth = (mon === 0) ? 11 : month - 1;
 	let nextMonth = (mon === 11) ? 0 : month + 1;
 	let previousYear = (mon === 0) ? year - 1 : year;
 	let nextYear = (mon === 11) ? year + 1 : year;
 	
-	let table = `<table class="cal"><caption><span class="prev" onclick="createCalendar(calendar, ${previousYear}, ${previousMonth})">←</span><span class="next" onclick="createCalendar(calendar, ${nextYear}, ${nextMonth})">→</span>${months[month]} ${year}</caption>`;
+	let table = `<table class="cal"><caption><span class="prev" onclick="createCalendar(calendar, ${previousYear}, ${previousMonth}, ${activitiesArr})">←</span><span class="next" onclick="createCalendar(calendar, ${nextYear}, ${nextMonth}, ${activitiesArr})">→</span>${months[month]} ${year}</caption>`;
 	
 	table += '<thead><tr><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th></tr></thead><tbody><tr>';
 
@@ -69,11 +101,11 @@ function createCalendar(elem, year, month) {
 	for (let i = 0; i < getDay(d); i++) {
 		table += '<td class="off"></td>';
 	}
-
+	
 	// <td> ячейки календаря с датами
 	while (d.getMonth() == mon) {
-		if (d.getDate() === currentDay && d.getMonth() === currentMonth && year === currentYear) {
-			table += '<td class="active"><a href="#">' + d.getDate() + '</a></td>';
+		if (ifDayIsActive(d, activities)) {
+			table += '<td class="active"><a href="/activity/by-day?=day=#&month=#&year=#">' + d.getDate() + '</a></td>';
 		} else {
 			table += '<td><a href="#">' + d.getDate() + '</a></td>';
 		};
@@ -109,4 +141,4 @@ function getDay(date) { // получить номер дня недели, от
 	return day - 1;
 }
 
-createCalendar(calendar, currentYear, currentMonth);
+//createCalendar(calendar, currentYear, currentMonth);
