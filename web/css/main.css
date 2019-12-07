@@ -117,3 +117,6 @@
 #backward_btn :hover {
   color: white;
 }
+.container {
+  width: 1300px;
+}
