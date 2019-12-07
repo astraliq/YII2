@@ -7,5 +7,12 @@
         <div class="col-md-3" id="calendar_block">
 
         </div>
+        <div class="col-md-12">
+
+            <?= \yii\grid\GridView::widget([
+                    'dataProvider' => $provider,
+
+            ])?>
+        </div>
     </div>
 </div>

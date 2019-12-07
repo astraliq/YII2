@@ -69,5 +69,12 @@ class RbacComponent extends Component
         }
         return false;
     }
+    public function canViewAll():bool
+    {
+        if (\Yii::$app->user->can('adminActivity')) {
+            return true;
+        }
+        return false;
+    }
 
 }

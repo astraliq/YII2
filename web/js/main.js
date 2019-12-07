@@ -45,7 +45,7 @@ if (document.location.pathname === '/activity/view-all') {
 		success: function (data) {
 			activitiesArr = data;
 			console.log(activitiesArr);
-			createCalendar(calendar, now.getFullYear(), now.getMonth(), activitiesArr);
+			createCalendar(calendar, now.getFullYear(), now.getMonth());
 		}
 	});
 } else {
@@ -68,7 +68,7 @@ function ifDayIsActive(date, activities) {
 	}
 };
 
-function createCalendar(elem, year, month, activities) {
+function createCalendar(elem, year, month) {
 	let months = {
 		0: 'Январь',
 		1: 'Февраль',
@@ -91,7 +91,7 @@ function createCalendar(elem, year, month, activities) {
 	let previousYear = (mon === 0) ? year - 1 : year;
 	let nextYear = (mon === 11) ? year + 1 : year;
 	
-	let table = `<table class="cal"><caption><span class="prev" onclick="createCalendar(calendar, ${previousYear}, ${previousMonth}, ${activitiesArr})">←</span><span class="next" onclick="createCalendar(calendar, ${nextYear}, ${nextMonth}, ${activitiesArr})">→</span>${months[month]} ${year}</caption>`;
+	let table = `<table class="cal"><caption><span class="prev" onclick="createCalendar(calendar, ${previousYear}, ${previousMonth})">←</span><span class="next" onclick="createCalendar(calendar, ${nextYear}, ${nextMonth})">→</span><a href="/activity/view-all?month=${month+1}&year=${year}">${months[month]} ${year}</a></caption>`;
 	
 	table += '<thead><tr><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th></tr></thead><tbody><tr>';
 
@@ -104,8 +104,8 @@ function createCalendar(elem, year, month, activities) {
 	
 	// <td> ячейки календаря с датами
 	while (d.getMonth() == mon) {
-		if (ifDayIsActive(d, activities)) {
-			table += '<td class="active"><a href="/activity/by-day?=day=#&month=#&year=#">' + d.getDate() + '</a></td>';
+		if (ifDayIsActive(d, activitiesArr)) {
+			table += '<td class="active"><a href="/activity/view-all?day=#&month=#&year=#">' + d.getDate() + '</a></td>';
 		} else {
 			table += '<td><a href="#">' + d.getDate() + '</a></td>';
 		};
