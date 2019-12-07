@@ -26,7 +26,12 @@
                             },
                             'format' => 'raw',
                         ],
-                        'title',
+                        [
+                                'attribute' => 'user.email',
+                            'label' => 'Email пользователя',
+
+
+                        ],
                         'description',
                         'dateStart',
                         'dateEnd',

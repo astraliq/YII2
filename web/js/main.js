@@ -101,11 +101,11 @@ function createCalendar(elem, year, month) {
 	for (let i = 0; i < getDay(d); i++) {
 		table += '<td class="off"></td>';
 	}
-	
+
 	// <td> ячейки календаря с датами
 	while (d.getMonth() == mon) {
 		if (ifDayIsActive(d, activitiesArr)) {
-			table += '<td class="active"><a href="/activity/view-all?day=#&month=#&year=#">' + d.getDate() + '</a></td>';
+			table += `<td class="active"><a href="/activity/view-all?day=${d.getDate()}&month=${month+1}&year=${year}">${d.getDate()}</a></td>`;
 		} else {
 			table += '<td><a href="#">' + d.getDate() + '</a></td>';
 		};
