@@ -68,7 +68,7 @@ if (document.location.pathname === '/activity/view-all') {
 		success: function (data) {
 			activitiesArr = data;
 //			console.log(activitiesArr);
-			if (getParams['month'] & getParams['year']) {
+			if (getParams['month'] && getParams['year']) {
 				let nowDay = getParams['day'] ? getParams['day'] : '01';
 				let nowDate = new Date(`${getParams['year']}-${getParams['month']}-${nowDay}`);
 				createCalendar(calendar, nowDate.getFullYear(), nowDate.getMonth(),getParams['day'] ? nowDate.getDate() : null);
