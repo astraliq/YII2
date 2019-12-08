@@ -15,7 +15,7 @@ class ActivitySearch extends Activity
             $query = Activity::find();
         } else {
             $query = Activity::find()
-                ->where(['userId' => \Yii::$app->user->getId()])
+                ->where(['userId' => \Yii::$app->user->getId(),'deleted' => 0])
                 ->orderBy('id');
         }
 

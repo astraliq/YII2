@@ -29,11 +29,10 @@ class BrowsingAction extends Action
             $activity = Activity::find()->all();
         } else {
             $activity = Activity::find()
-                ->where(['userId' => \Yii::$app->user->getId()])
+                ->where(['userId' => \Yii::$app->user->getId(),'deleted' => 0])
                 ->orderBy('id')
                 ->all();
         }
-
 
         if (\Yii::$app->request->isAjax) {
             \Yii::$app->response->format=Response::FORMAT_JSON;

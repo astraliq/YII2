@@ -27,6 +27,10 @@ class GetAction extends Action
             throw new HttpException(403,'Not access to activity');
         }
 
+        if ($model->deleted === 1) {
+            throw new HttpException(404,'Activity has been deleted');
+        }
+
         if (\Yii::$app->request->isAjax) {
             \Yii::$app->response->format=Response::FORMAT_JSON;
             return $model;

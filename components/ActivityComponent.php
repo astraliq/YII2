@@ -52,6 +52,24 @@ class ActivityComponent extends Component
         return false;
     }
 
+    public function deleteActivity(Activity $activity) {
+        $activity->deleted = 1;
+        if ($activity->save(false)) {
+            return true;
+        }
+        \Yii::error($activity->getErrors());
+        return false;
+    }
+
+    public function restoreActivity(Activity $activity) {
+        $activity->deleted = 0;
+        if ($activity->save(false)) {
+            return true;
+        }
+        \Yii::error($activity->getErrors());
+        return false;
+    }
+
 
 
 }
