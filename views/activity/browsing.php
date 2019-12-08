@@ -15,8 +15,14 @@
                     },
                     'columns' => [
                             ['class' => \yii\grid\SerialColumn::class],
-                        'id',
-                        'userId',
+                        [
+                            'attribute' => 'id',
+                            'visible' => $admin,
+                        ],
+                        [
+                            'attribute' => 'userId',
+                            'visible' => $admin,
+                        ],
                         [
                                 'attribute' => 'title',
                             'value' => function($model) {
@@ -30,10 +36,18 @@
                         ],
                         'description',
                         'dateStart',
-                        'dateEnd',
+                        [
+                            'attribute' => 'dateEnd',
+                            'visible' => !$admin,
+                        ],
                         'isBlocked',
                         'isRepeat',
                         'repeatType',
+                        [
+                            'attribute' => 'deleted',
+                            'visible' => $admin,
+                            'label' => 'Удалено',
+                        ],
                         [
                             'attribute' => 'email',
                             'label' => 'Email оповещений',

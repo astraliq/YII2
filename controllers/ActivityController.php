@@ -23,6 +23,7 @@ class ActivityController extends BaseController
             'view-all' => ['class' =>BrowsingAction::class],
             'change' => ['class' =>CreateAction::class],
             'del' => ['class' =>DeleteAction::class],
+            'restore' => ['class' =>DeleteAction::class],
         ];
 
     }

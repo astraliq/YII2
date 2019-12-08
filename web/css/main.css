@@ -126,6 +126,9 @@
 #backward_btn :hover {
   color: white;
 }
+.btn-sm {
+  margin: 0 3px;
+}
 .container {
   width: 1300px;
 }

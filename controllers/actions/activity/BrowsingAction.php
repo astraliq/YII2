@@ -18,6 +18,7 @@ class BrowsingAction extends Action
 {
     public function run()
     {
+        $admin = false;
         if (!\Yii::$app->rbac->canCreateActivity()){
             throw new HttpException(403,'Not Auth Action');
         }
@@ -26,6 +27,7 @@ class BrowsingAction extends Action
         $provider = $model->search(\Yii::$app->request->getQueryParams());
 
         if (\Yii::$app->rbac->canViewAll()){
+            $admin = true;
             $activity = Activity::find()->all();
         } else {
             $activity = Activity::find()
@@ -43,6 +45,7 @@ class BrowsingAction extends Action
                 'activity' => $activity,
                 'model' => $model,
                 'provider' => $provider,
+                'admin'=>$admin,
             ]);
     }
 }

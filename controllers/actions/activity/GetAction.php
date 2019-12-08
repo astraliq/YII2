@@ -18,7 +18,7 @@ class GetAction extends Action
     public function run($id)
     {
         $model = Activity::findOne($id);
-
+        $admin = false;
         if (!$model){
             throw new HttpException(404,'Activity not found');
         }
@@ -27,8 +27,12 @@ class GetAction extends Action
             throw new HttpException(403,'Not access to activity');
         }
 
-        if ($model->deleted === 1) {
+        if ($model->deleted === 1 && !\Yii::$app->rbac->canViewAll()) {
             throw new HttpException(404,'Activity has been deleted');
+        }
+
+        if (\Yii::$app->rbac->canViewAll()) {
+            $admin = true;
         }
 
         if (\Yii::$app->request->isAjax) {
@@ -36,6 +40,6 @@ class GetAction extends Action
             return $model;
         }
 
-        return $this->controller->render('view', ['model' => $model,'pageTitle'=>'Просмотр события']);
+        return $this->controller->render('view', ['model' => $model,'pageTitle'=>'Просмотр события','admin'=>$admin]);
     }
 }

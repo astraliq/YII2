@@ -46,7 +46,7 @@ class CreateAction extends Action
             }
             \Yii::$app->params['dateStart'] = \Yii::$app->formatter->asDatetime($model->dateStart, "php:M Y");
             if ($comp->addActivity($model)) {
-                return $this->controller->render('view', ['model' => $model,'pageTitle'=>$pageTitleFinal]);
+                return $this->controller->render('view', ['model' => $model,'pageTitle'=>$pageTitleFinal,'admin'=>false]);
             } else {
                 print_r($model->getErrors());
             }
