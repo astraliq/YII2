@@ -48,8 +48,6 @@ class ActivityComponent extends Component
             \Yii::error($activity->getErrors());
             return false;
         }
-//        print_r('OKOKOK');
-//        exit;
         //валидация файлов не прошла
         return false;
     }

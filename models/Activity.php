@@ -40,6 +40,7 @@ class Activity extends ActivityBase
     }
 
 
+
     public function rules()
     {
         return array_merge([

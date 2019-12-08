@@ -70,8 +70,8 @@ if (document.location.pathname === '/activity/view-all') {
 //			console.log(activitiesArr);
 			if (getParams['month'] & getParams['year']) {
 				let nowDay = getParams['day'] ? getParams['day'] : '01';
-				let nowMonth = new Date(`${getParams['year']}-${getParams['month']}-${nowDay}`);
-				createCalendar(calendar, nowMonth.getFullYear(), nowMonth.getMonth(),getParams['day'] ? nowMonth.getDate() : null);
+				let nowDate = new Date(`${getParams['year']}-${getParams['month']}-${nowDay}`);
+				createCalendar(calendar, nowDate.getFullYear(), nowDate.getMonth(),getParams['day'] ? nowDate.getDate() : null);
 			} else {
 				createCalendar(calendar, now.getFullYear(), now.getMonth());
 			}
@@ -91,9 +91,10 @@ if (document.location.pathname === '/activity/view') {
 		success: function (data) {
 			activitiesArr = data;
 //			console.log(activitiesArr);
+			let nowDay = getParams['day'] ? getParams['day'] : '01';
 			let findActivity = activitiesArr.find(el => +el.id === +getParams['id']);
-			let nowMonth = new Date(findActivity['dateStart']);
-			createCalendar(calendar, nowMonth.getFullYear(), nowMonth.getMonth(),nowMonth.getDate());
+			let nowDate = new Date(findActivity['dateStart'].replace(/(\d{2})\.(\d{2})\.(\d{4})/,'$3-$2-$1'));
+			createCalendar(calendar, nowDate.getFullYear(), nowDate.getMonth(),nowDate.getDate());
 		}
 	});
 } else {
@@ -108,8 +109,10 @@ let currentYear = currentDate.getFullYear();
 
 
 function ifDayIsActive(date, activities) {
+
 	for (let i = 0; i < activities.length; i++) {
-		if (date.valueOf() === new Date(activities[i].dateStart).valueOf()) {
+		let activityDate = new Date(activities[i].dateStart.replace(/(\d{2})\.(\d{2})\.(\d{4})/,'$3-$2-$1'));
+		if (date.getDate() === activityDate.getDate() && date.getMonth() === activityDate.getMonth() && date.getFullYear() === activityDate.getFullYear()) {
 			return true;
 		};
 	}

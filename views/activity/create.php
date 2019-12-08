@@ -2,10 +2,10 @@
 /**
  * @var $model \app\models\Activity
  */
-$this->title = 'Новое событие';
+$this->title = $pageTitle;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<h1>Новое событие</h1>
+<h1><?=$pageTitle ?></h1>
 
 <div class="row">
     <div class="col-md-8">
