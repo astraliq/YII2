@@ -1,5 +1,28 @@
 "use strict"
 
+function parse_query_string(query) {
+	query = query.replace(/^\?/gi, '');
+	let lets = query.split("&");
+	let query_string = {};
+	for (let i = 0; i < lets.length; i++) {
+		let pair = lets[i].split("=");
+		let key = decodeURIComponent(pair[0]);
+		let value = decodeURIComponent(pair[1]);
+		// If first entry with this name
+		if (typeof query_string[key] === "undefined") {
+			query_string[key] = decodeURIComponent(value);
+			// If second entry with this name
+		} else if (typeof query_string[key] === "string") {
+			let arr = [query_string[key], decodeURIComponent(value)];
+			query_string[key] = arr;
+			// If third or later entry with this name
+		} else {
+			query_string[key].push(decodeURIComponent(value));
+		}
+	}
+	return query_string;
+}
+
 let checkBoxBlocks = {
 	'.field-activity-isending': '#activity-isending',
 	'.field-activity-isrepeat': '#activity-isrepeat',
@@ -32,7 +55,7 @@ for (let i = 0; i < Object.keys(checkBoxBlocks).length; i++) {
 		}
 	});
 }
-
+let getParams = parse_query_string(document.location.search)
 let activitiesArr = [];
 let now = new Date();
 let calendar = $('#calendar_block');
@@ -44,14 +67,38 @@ if (document.location.pathname === '/activity/view-all') {
 		},
 		success: function (data) {
 			activitiesArr = data;
-			console.log(activitiesArr);
-			createCalendar(calendar, now.getFullYear(), now.getMonth());
+//			console.log(activitiesArr);
+			if (getParams['month'] & getParams['year']) {
+				let nowDay = getParams['day'] ? getParams['day'] : '01';
+				let nowMonth = new Date(`${getParams['year']}-${getParams['month']}-${nowDay}`);
+				createCalendar(calendar, nowMonth.getFullYear(), nowMonth.getMonth(),getParams['day'] ? nowMonth.getDate() : null);
+			} else {
+				createCalendar(calendar, now.getFullYear(), now.getMonth());
+			}
 		}
 	});
 } else {
 	
 };
 
+if (document.location.pathname === '/activity/view') {
+	$.ajax({
+		url: '/activity/view-all',
+//		url: document.location.pathname + document.location.search,
+		data: {
+			method: 'getActivities',
+		},
+		success: function (data) {
+			activitiesArr = data;
+//			console.log(activitiesArr);
+			let findActivity = activitiesArr.find(el => +el.id === +getParams['id']);
+			let nowMonth = new Date(findActivity['dateStart']);
+			createCalendar(calendar, nowMonth.getFullYear(), nowMonth.getMonth(),nowMonth.getDate());
+		}
+	});
+} else {
+	
+};
 	
 
 let currentDate = new Date($('#date_start_newaction').text() ? $('#date_start_newaction').text() : '2016-11-17');
@@ -68,7 +115,7 @@ function ifDayIsActive(date, activities) {
 	}
 };
 
-function createCalendar(elem, year, month) {
+function createCalendar(elem, year, month, day) {
 	let months = {
 		0: 'Январь',
 		1: 'Февраль',
@@ -91,7 +138,7 @@ function createCalendar(elem, year, month) {
 	let previousYear = (mon === 0) ? year - 1 : year;
 	let nextYear = (mon === 11) ? year + 1 : year;
 	
-	let table = `<table class="cal"><caption><span class="prev" onclick="createCalendar(calendar, ${previousYear}, ${previousMonth})">←</span><span class="next" onclick="createCalendar(calendar, ${nextYear}, ${nextMonth})">→</span><a href="/activity/view-all?month=${month+1}&year=${year}">${months[month]} ${year}</a></caption>`;
+	let table = `<table class="cal"><caption><span class="prev" onclick="createCalendar(calendar, ${previousYear}, ${previousMonth}, ${day})">←</span><span class="next" onclick="createCalendar(calendar, ${nextYear}, ${nextMonth}, ${day})">→</span><a href="/activity/view-all?month=${month+1}&year=${year}">${months[month]} ${year}</a></caption>`;
 	
 	table += '<thead><tr><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th></tr></thead><tbody><tr>';
 
@@ -104,7 +151,9 @@ function createCalendar(elem, year, month) {
 
 	// <td> ячейки календаря с датами
 	while (d.getMonth() == mon) {
-		if (ifDayIsActive(d, activitiesArr)) {
+		if (day === d.getDate() && ifDayIsActive(d, activitiesArr)) {
+			table += `<td class="current_active"><a href="/activity/view-all?day=${d.getDate()}&month=${month+1}&year=${year}">${d.getDate()}</a></td>`;
+		} else if (ifDayIsActive(d, activitiesArr)) {
 			table += `<td class="active"><a href="/activity/view-all?day=${d.getDate()}&month=${month+1}&year=${year}">${d.getDate()}</a></td>`;
 		} else {
 			table += '<td><a href="#">' + d.getDate() + '</a></td>';
@@ -140,5 +189,6 @@ function getDay(date) { // получить номер дня недели, от
 	if (day == 0) day = 7; // сделать воскресенье (0) последним днем
 	return day - 1;
 }
+
 
 //createCalendar(calendar, currentYear, currentMonth);

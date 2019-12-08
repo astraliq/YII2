@@ -99,7 +99,7 @@
 }
 
 .cal td.active a, .cal td a:active {
-  margin: -1px;
+  margin: 0;
   color: #f3f3f3;
   text-shadow: 0 1px rgba(0, 0, 0, 0.3);
   background: #B32800;
@@ -123,6 +123,15 @@
   margin-bottom: 0;
 }
 
+.cal td.current_active a, .cal td a:active {
+  margin: 0;
+  color: black;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+  background: #F5C527;
+  border: 0px solid #598b94;
+  
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
 
 #backward_btn {
 	position: absolute;
@@ -139,4 +148,9 @@
 
 .container {
 	width: 1300px;
+}
+
+
+.activity_block {
+	margin: 30px 0 0 0;
 }

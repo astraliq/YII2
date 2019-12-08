@@ -22,9 +22,5 @@ class ActivityController extends BaseController
         ];
 
     }
-//    public function actionCreate()
-//    {
-//        return $this->render('create');
-//    }
 
 }

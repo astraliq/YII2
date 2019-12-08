@@ -27,6 +27,11 @@ class GetAction extends Action
             throw new HttpException(403,'Not access to activity');
         }
 
+        if (\Yii::$app->request->isAjax) {
+            \Yii::$app->response->format=Response::FORMAT_JSON;
+            return $model;
+        }
+
         return $this->controller->render('view', ['model' => $model,'pageTitle'=>'Просмотр события']);
     }
 }
