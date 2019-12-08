@@ -76,6 +76,13 @@ class ActivityComponent extends Component
         return false;
     }
 
+    public function fullDeleteActivity(Activity $activity) {
+        if ($activity->delete()) {
+            return true;
+        }
+        \Yii::error($activity->getErrors());
+        return false;
+    }
 
 
 }
