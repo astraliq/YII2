@@ -86,7 +86,7 @@ if (document.location.pathname === '/activity/view-all') {
 	
 };
 
-if (document.location.pathname === '/activity/view') {
+if (document.location.pathname === '/activity/view' || document.location.pathname === '/activity/change') {
 	$.ajax({
 		url: '/activity/view-all',
 //		url: document.location.pathname + document.location.search,
