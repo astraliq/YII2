@@ -45,7 +45,12 @@ for (let i = 0; i < Object.keys(checkBoxBlocks).length; i++) {
 	checkBoxInput[i] = $(checkBoxBlocks[Object.keys(checkBoxBlocks)[i]]);
 	dateInput[i] = $(blockInputs[Object.keys(blockInputs)[i]]);
 	dateBlock[i].hide();
-
+	if (checkBoxInput[i].prop('checked')) {
+			dateBlock[i].show();
+		} else {
+			dateBlock[i].hide();
+			dateInput[i].val('');
+		}
 	checkBoxBlock[i].bind('click', function () {
 		if (checkBoxInput[i].prop('checked')) {
 			dateBlock[i].show();

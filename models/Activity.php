@@ -17,7 +17,7 @@ class Activity extends ActivityBase
 //    public $dateEnd;
 //    public $isBlocked;
 //    public $isRepeat;
-    public $repeatType;
+//    public $repeatType;
     public $authorId;
 //    public $email;
     public $useNotification;

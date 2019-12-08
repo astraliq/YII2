@@ -51,6 +51,6 @@ class DeleteAction extends Action
             }
         }
 
-        return $this->controller->render('index');
+//        return $this->controller->render('index');
     }
 }
