@@ -44,7 +44,7 @@ class ActivityBase extends \yii\db\ActiveRecord
             [['isBlocked', 'isRepeat', 'userId', 'repeatType','useNotification'], 'integer'],
             [['title', 'email'], 'string', 'max' => 150],
             [['description', 'files'], 'string', 'max' => 250],
-            [['userId'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['userId' => 'id']],
+            [['userId'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['userId' => 'id']],
         ];
     }
 
@@ -85,6 +85,6 @@ class ActivityBase extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'userId']);
+        return $this->hasOne(Users::class, ['id' => 'userId']);
     }
 }
