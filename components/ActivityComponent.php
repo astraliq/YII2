@@ -84,5 +84,9 @@ class ActivityComponent extends Component
         return false;
     }
 
+    public function findTodayNotifActivity() {
+
+    }
+
 
 }
