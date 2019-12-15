@@ -20,7 +20,7 @@ class Activity extends ActivityBase
 //    public $repeatType;
     public $authorId;
 //    public $email;
-    public $useNotification;
+//    public $useNotification;
     public $filesReal;
 
     const DAY = 0;

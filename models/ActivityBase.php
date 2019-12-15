@@ -20,7 +20,7 @@ use function Prophecy\Argument;
  * @property string $createdAt
  * @property int $userId
  * @property int $repeatType 0 - без повторений, 1 - Каждый день, 2 - Каждую неделю, 3 - Каждый месяц
- *
+ * @property int $useNotification
  * @property Users $user
  */
 class ActivityBase extends \yii\db\ActiveRecord
@@ -41,7 +41,7 @@ class ActivityBase extends \yii\db\ActiveRecord
         return [
             [['title', 'description', 'dateStart', 'userId'], 'required'],
             [['dateStart', 'dateEnd', 'createdAt'], 'safe'],
-            [['isBlocked', 'isRepeat', 'userId', 'repeatType'], 'integer'],
+            [['isBlocked', 'isRepeat', 'userId', 'repeatType','useNotification'], 'integer'],
             [['title', 'email'], 'string', 'max' => 150],
             [['description', 'files'], 'string', 'max' => 250],
             [['userId'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['userId' => 'id']],
@@ -66,6 +66,7 @@ class ActivityBase extends \yii\db\ActiveRecord
             'createdAt' => Yii::t('app', 'Created At'),
             'userId' => Yii::t('app', 'User ID'),
             'repeatType' => Yii::t('app', 'Repeat Type'),
+            'useNotification' => Yii::t('app', 'Use Notification'),
         ];
     }
     public function afterFind()

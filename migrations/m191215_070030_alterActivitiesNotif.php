@@ -12,7 +12,7 @@ class m191215_070030_alterActivitiesNotif extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('activity','useNotif',$this->boolean()->notNull()->defaultValue(0));
+        $this->addColumn('activity','useNotification',$this->boolean()->notNull()->defaultValue(0));
     }
 
     /**
@@ -20,7 +20,7 @@ class m191215_070030_alterActivitiesNotif extends Migration
      */
     public function safeDown()
     {
-        $this->dropColumn('activity','useNotif');
+        $this->dropColumn('activity','useNotification');
     }
 
 
