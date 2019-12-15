@@ -22,7 +22,8 @@ $config = [
         ],
         'dao' => ['class' => \app\components\DAOComponent::class],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => 'yii\caching\MemCache',
+            'useMemcached' => true,
         ],
         'auth' => ['class' => \app\components\AuthComponent::class],
         'activity' => ['class' => \app\components\ActivityComponent::class],
