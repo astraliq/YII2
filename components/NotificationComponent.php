@@ -33,18 +33,18 @@ class NotificationComponent extends Component
         foreach ($activities as $activity) {
             $send = $this->getMailer()->compose('notif',['model' => $activity])
                 ->setSubject('События сегодня!')
-                ->setFrom('astraliq457@gmail.com')
+                ->setFrom('astral457@mail.ru')
                 ->setTo($activity->email)
                 ->send();
             if (!$send) {
                 if (\Yii::$app instanceof Application) {
-                    echo 'Error send email to '.$activity->email. '!';
+                    echo 'Error send email to '.$activity->email. '!'.PHP_EOL;
                 }
                 return false;
             }
 
             if (\Yii::$app instanceof Application) {
-                echo 'Email send to '.$activity->email. '!';
+                echo 'Email send to '.$activity->email. '!'.PHP_EOL;
             }
 
             return true;
