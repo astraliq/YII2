@@ -19,14 +19,17 @@ class DaoController extends BaseController
         parent::__construct($id, $module, $config);
     }
     public function actionC(){
-//        \Yii::$app->cache->set('key1','value1');
+        \Yii::$app->cache->set('key1','value1');
         $val=\Yii::$app->cache->get('key1');
-        $val2=\Yii::$app->cache->getOrSet('key2',function (){
-            return 'val2';
-        });
-//        \Yii::$app->cache->flush()
-        echo $val.'<br/>';
-        echo $val2;
+//        \Yii::$app->cache->delete('key1');
+        echo $val;
+
+//        $val2=\Yii::$app->cache->getOrSet('key2',function (){
+//            return 'val2';
+//        });
+////        \Yii::$app->cache->flush()
+//        echo $val.'<br/>';
+//        echo $val2;
     }
     public function actionTest($email=''){
 //        $this->dao->insertTransactions();
