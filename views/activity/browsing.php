@@ -36,6 +36,7 @@
                         ],
                         'description',
                         'dateStart',
+                        'dateEnd',
                         [
                             'attribute' => 'dateEnd',
                             'visible' => !$admin,
@@ -52,10 +53,10 @@
                             'attribute' => 'email',
                             'label' => 'Email оповещений',
                         ],
-                        [
-                            'attribute' => 'createdAt',
-                            'label' => 'Дата создания',
-                        ],
+//                        [
+//                            'attribute' => 'createdAt',
+//                            'label' => 'Дата создания',
+//                        ],
                     ]
             ])?>
         </div>

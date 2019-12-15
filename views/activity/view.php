@@ -10,17 +10,17 @@ $filesNames = explode('|',$model->files);
         </div>
 
         <div class="col-md-12 activity_block">
-            <?= \yii\helpers\Html::a('Изменить событие',['activity/change','id'=>$model->id],['class'=>'btn btn-sm btn-success']);?>
+            <?= \yii\helpers\Html::a('Изменить событие',['activity/change','id'=>$model->id],['onClick'=>'return sure()','class'=>'btn btn-sm btn-success']);?>
             <?php
                 if ($admin) {
                     if ($model->deleted === 1) {
-                        echo \yii\helpers\Html::a('Снять пометку на удаление',['activity/restore','id'=>$model->id],['class'=>'btn btn-sm btn-success']);
+                        echo \yii\helpers\Html::a('Снять пометку на удаление',['activity/restore','id'=>$model->id],['onClick'=>'return sure()','class'=>'btn btn-sm btn-success',]);
                     } else {
-                        echo yii\helpers\Html::a('Пометить на удаление событие', ['activity/del', 'id' => $model->id], ['class' => 'btn btn-sm btn-warning']);
+                        echo yii\helpers\Html::a('Пометить на удаление событие', ['activity/del', 'id' => $model->id], ['onClick'=>'return sure()','class' => 'btn btn-sm btn-warning',]);
                     }
-                    echo \yii\helpers\Html::a('Удалить событие из базы',['activity/fulldel','id'=>$model->id],['class'=>'btn btn-sm btn-danger']);
+                    echo \yii\helpers\Html::a('Удалить событие из базы',['activity/fulldel','id'=>$model->id],['onClick'=>'return sure()','class'=>'btn btn-sm btn-danger']);
                 } else {
-                    echo \yii\helpers\Html::a('Удалить событие', ['activity/del', 'id' => $model->id], ['class' => 'btn btn-sm btn-danger']);
+                    echo \yii\helpers\Html::a('Удалить событие', ['activity/del', 'id' => $model->id], ['onClick'=>'return sure()','class' => 'btn btn-sm btn-danger']);
                 }
             ?>
             <h3><?= $model->title ?></h3>

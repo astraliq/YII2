@@ -138,3 +138,7 @@
 #calendar_block {
   min-height: 270px;
 }
+.main_menu {
+  margin: 0 auto;
+  width: fit-content;
+}
