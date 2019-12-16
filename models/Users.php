@@ -20,6 +20,7 @@ use yii\web\IdentityInterface;
 class Users extends UsersBase implements IdentityInterface
 {
     public $password;
+    public $name;
 
     private const SCENARIO_SIGN_UP = 'signUp';
     private const SCENARIO_SIGN_IN = 'signIn';
@@ -38,6 +39,7 @@ class Users extends UsersBase implements IdentityInterface
             ['password', 'required'],
             [['email'], 'unique','on'=> self::SCENARIO_SIGN_UP],
             [['email'], 'exist','on'=> self::SCENARIO_SIGN_IN],
+            ['name','string','min' => 3,'max' => 100],
         ],parent::rules());
     }
 
@@ -79,6 +81,11 @@ class Users extends UsersBase implements IdentityInterface
     public function getUsername()
     {
         return $this->email;
+    }
+
+    public function getUserSecondName()
+    {
+        return $this->name;
     }
 
     /**

@@ -35,6 +35,7 @@ class UsersBase extends \yii\db\ActiveRecord
             [['email'], 'required'],
             [['createdAt'], 'safe'],
             [['email', 'passwordHash', 'authKey', 'token'], 'string', 'max' => 150],
+            ['description','string','min' => 2,'max' => 250],
         ];
     }
 
@@ -50,6 +51,7 @@ class UsersBase extends \yii\db\ActiveRecord
             'authKey' => Yii::t('app', 'Auth Key'),
             'token' => Yii::t('app', 'Token'),
             'createdAt' => Yii::t('app', 'Created At'),
+            'name' => Yii::t('app', 'Name'),
         ];
     }
 
@@ -58,6 +60,6 @@ class UsersBase extends \yii\db\ActiveRecord
      */
     public function getActivities()
     {
-        return $this->hasMany(Activity::className(), ['userId' => 'id']);
+        return $this->hasMany(Activity::class, ['userId' => 'id']);
     }
 }
