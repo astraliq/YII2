@@ -36,7 +36,6 @@
                         ],
                         'description',
                         'dateStart',
-                        'dateEnd',
                         [
                             'attribute' => 'dateEnd',
                             'visible' => !$admin,

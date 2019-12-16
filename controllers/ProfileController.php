@@ -40,20 +40,4 @@ class ProfileController extends BaseController
         return $this->render('view', ['user' => $user,'pageTitle'=>'Личный кабинет','admin'=>$admin]);
     }
 
-    public function actionChange(){
-
-        if (\Yii::$app->user->isGuest){
-            throw new HttpException(403,'Not access to this page, please auth');
-        }
-
-        $user = Users::findOne($this->userId);
-        $admin = false;
-
-        if (\Yii::$app->request->isAjax) {
-            \Yii::$app->response->format=Response::FORMAT_JSON;
-            return $user;
-        }
-
-        return $this->render('change',['user' => $user,'pageTitle'=>'Личный кабинет','admin'=>$admin]);
-    }
 }
