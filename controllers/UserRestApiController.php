@@ -11,9 +11,9 @@ use yii\rest\ActiveController;
 use yii\web\HttpException;
 use yii\web\Response;
 
-class RestApiController extends ActiveController
+class UserRestApiController extends ActiveController
 {
-    public $modelClass = Activity::class;
+    public $modelClass = Users::class;
 
     public function behaviors()
     {
@@ -24,7 +24,7 @@ class RestApiController extends ActiveController
         return $beh;
     }
 
-    public function actionUser ($token) {
+    public function actionUser ($token=null) {
         $user = Users::findIdentityByAccessToken($token);
         \Yii::$app->response->format=Response::FORMAT_JSON;
         return $user;

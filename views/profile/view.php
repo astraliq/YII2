@@ -19,7 +19,7 @@
             </div>
             <div  class="col-sm-6">
                 <p class="profile_info profile_name"><?= $user->name ?></p>
-                <input type="text" class="form-check-input" id="profile_name_input" style="display: none">
+                <input type="text" class="form-check-input" id="profile_name_input" data-type="name" style="display: none">
                 <span class="profile_change name_change">Изменить</span>
             </div>
         </div>
@@ -29,7 +29,7 @@
             </div>
             <div  class="col-sm-6">
                 <p class="profile_info profile_country"><?= $user->country ?></p>
-                <input type="text" class="form-check-input" id="profile_country_input" style="display: none">
+                <input type="text" class="form-check-input" id="profile_country_input" data-type="country" style="display: none">
                 <span class="profile_change country_change">Изменить</span>
             </div>
         </div>

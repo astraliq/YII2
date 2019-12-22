@@ -21,6 +21,8 @@ class Users extends UsersBase implements IdentityInterface
 {
     public $password;
     public $name;
+    public $birthday;
+    public $country;
 
     private const SCENARIO_SIGN_UP = 'signUp';
     private const SCENARIO_SIGN_IN = 'signIn';
@@ -33,13 +35,15 @@ class Users extends UsersBase implements IdentityInterface
         $this->setScenario(self::SCENARIO_SIGN_IN);
     }
 
+
     public function rules()
     {
         return array_merge([
-            ['password', 'required'],
+            ['password', 'required','when'=> function ($model) {return !\Yii::$app->request->isAjax;}],
             [['email'], 'unique','on'=> self::SCENARIO_SIGN_UP],
             [['email'], 'exist','on'=> self::SCENARIO_SIGN_IN],
-            ['name','string','min' => 3,'max' => 100],
+            ['name','string','min' => 1,'max' => 100],
+            ['country','string','min' => 1,'max' => 100],
         ],parent::rules());
     }
 
@@ -121,5 +125,17 @@ class Users extends UsersBase implements IdentityInterface
     public function validateAuthKey($authKey)
     {
         return $this->authKey==$authKey;
+    }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'email',
+            'name',
+            'createdAt',
+            'country',
+            'birthday',
+        ];
     }
 }

@@ -1,5 +1,29 @@
 "use strict"
 let userToken;
+let userId;
+let userEmail;
+function hideShowProfileInputs(e) {
+	let targetEl = e.target;
+	let neighbors = $(`.${targetEl.classList[1]}`).siblings();
+
+	if ($(`.${neighbors[0].classList[1]}`).is(':visible')) {
+		$(`.${neighbors[0].classList[1]}`).hide();
+		$(`#${neighbors[1].id}`).show();
+	} else {
+		$(`.${neighbors[0].classList[1]}`).show();
+		$(`#${neighbors[1].id}`).hide();
+		let newVal = $(`#${neighbors[1].id}`).val();
+		
+//		let res = {
+//			newValue: newVal
+//		};
+		return newVal;
+	}
+
+	return false;
+
+}
+
 
 $.ajax({
 	url: '/api/auth',
@@ -7,9 +31,11 @@ $.ajax({
 	data: {
 		//			method: 'get',
 	},
-	success: function (token) {
-		userToken = token;
-
+	success: function (data) {
+		
+		userToken = data[0];
+		userId = data[1];
+		userEmail = data[2];
 		function parse_query_string(query) {
 			query = query.replace(/^\?/gi, '');
 			let lets = query.split("&");
@@ -70,11 +96,13 @@ $.ajax({
 				}
 			});
 		}
+		
 		let getParams = parse_query_string(document.location.search)
 		let activitiesArr = [];
 		let now = new Date();
 		let calendar = $('#calendar_block');
 		if (document.location.pathname === '/activity/view-all') {
+			
 			$.ajax({
 				url: '/activity/view-all',
 				data: {
@@ -211,10 +239,12 @@ $.ajax({
 		function sure() {
 			return confirm('Вы уверены?');
 		}
-
+		
+		let userInfo;
+		
 		if (document.location.pathname === '/profile/view') {
 			$.ajax({
-				url: '/rest-api/user',
+				url: `/user-rest-api/${userId}`,
 				type: "GET",
 				headers: {
 					"Accept": "application/json",
@@ -229,5 +259,30 @@ $.ajax({
 				}
 			});
 		}
+
+		let profileChange = $('.profile_change');
+
+		profileChange.click(function (e) {
+			let newValue = hideShowProfileInputs(e);
+			if (newValue) {
+				$.ajax({
+					url: `/user-rest-api/${userId}`,
+					type: "PUT",
+					headers: {
+						"Accept": "application/json",
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${userToken}`,
+					},
+					data: {
+						name: newValue,
+					},
+					success: function (data) {
+						console.log(data);
+					}
+				});
+			}
+
+		});
+
 	}
 });

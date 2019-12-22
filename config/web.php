@@ -61,7 +61,18 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enableStrictParsing' => false,
             'rules' => [
+//                'create'=>'activity/create',
+//                'new'=>'activity/create',
+//                'GET event/view/<id:\d+>'=>'activity/view',
+//                'GET event/view/<id:\w+>'=>'activity/view',
+//                'event/<action>'=>'activity/<action>',
+                [
+                    'class'=>yii\rest\UrlRule::class,
+                    'controller'=>'user-rest-api',
+                    'pluralize'=>false
+                ],
             ],
         ],
         

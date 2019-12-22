@@ -144,7 +144,7 @@
 }
 .profile_row .profile_info {
   display: inline-block;
-  min-width: 100px;
+  min-width: 174px;
 }
 .profile_row .profile_change {
   cursor: pointer;
