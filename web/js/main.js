@@ -268,14 +268,15 @@ $.ajax({
 				$.ajax({
 					url: `/user-rest-api/${userId}`,
 					type: "PUT",
+					dataType: 'json',
 					headers: {
 						"Accept": "application/json",
 						"Content-Type": "application/json",
 						"Authorization": `Bearer ${userToken}`,
 					},
-					data: {
+					data: JSON.stringify({
 						name: newValue,
-					},
+					}),
 					success: function (data) {
 						console.log(data);
 					}

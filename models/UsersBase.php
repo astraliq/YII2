@@ -38,6 +38,7 @@ class UsersBase extends \yii\db\ActiveRecord
             [['email', 'passwordHash', 'authKey', 'token'], 'string', 'max' => 150],
             ['country','string','min' => 1,'max' => 100],
             ['name','string','min' => 1,'max' => 100],
+            ['birthday', 'date', 'format' => 'php:Y-m-d'],
         ];
     }
 

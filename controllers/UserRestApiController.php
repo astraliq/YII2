@@ -26,7 +26,8 @@ class UserRestApiController extends ActiveController
 
     public function actionUser ($token=null) {
         $user = Users::findIdentityByAccessToken($token);
-        \Yii::$app->response->format=Response::FORMAT_JSON;
+
         return $user;
     }
+
 }
